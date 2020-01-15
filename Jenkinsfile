@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:6-alpine' 
+            image 'circleci/node:12.14.0-browsers' 
             args '-p 3000:3000' 
         }
     }
@@ -9,6 +9,11 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'npm install' 
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'npx qawolf test'
             }
         }
     }
